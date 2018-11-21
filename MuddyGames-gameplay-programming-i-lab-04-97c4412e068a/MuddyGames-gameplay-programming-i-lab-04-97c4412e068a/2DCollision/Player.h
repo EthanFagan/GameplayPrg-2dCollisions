@@ -8,14 +8,18 @@
 
 class Player : public GameObject
 {
-
+private:
+	enum shape{SQUARE, POLY, CIRCLE, CAPSULE, RAY };
+	
 public:
 	Player();
 	~Player();
-	Player(const AnimatedSprite&);
+	Player(const AnimatedSprite&, const AnimatedSprite&, const AnimatedSprite&, const AnimatedSprite&, const AnimatedSprite&);
 	AnimatedSprite& getAnimatedSprite();
 	void handleInput(Input);
 	void update();
+
+	int shape = SQUARE;
 };
 
 #endif // !PLAYER_H

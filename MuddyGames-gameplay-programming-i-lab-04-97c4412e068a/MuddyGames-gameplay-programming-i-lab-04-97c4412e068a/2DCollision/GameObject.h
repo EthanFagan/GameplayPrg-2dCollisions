@@ -9,9 +9,13 @@ class GameObject
 {
 protected:
 	PlayerFSM m_player_fsm;
-	AnimatedSprite m_animated_sprite;
+	AnimatedSprite m_animated_square;
+	AnimatedSprite m_animated_poly;
+	AnimatedSprite m_animated_circle;
+	AnimatedSprite m_animated_capsule;
+	AnimatedSprite m_animated_ray;
 	GameObject();
-	GameObject(const AnimatedSprite&);
+	GameObject(const AnimatedSprite&, const AnimatedSprite&, const AnimatedSprite&, const AnimatedSprite&, const AnimatedSprite&);
 
 public:
 	virtual ~GameObject() = 0;

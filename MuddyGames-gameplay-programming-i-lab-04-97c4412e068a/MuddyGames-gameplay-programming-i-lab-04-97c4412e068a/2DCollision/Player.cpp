@@ -9,7 +9,7 @@ Player::Player() : GameObject()
 	m_player_fsm.setPrevious(new Idle());
 }
 
-Player::Player(const AnimatedSprite& s) : GameObject(s)
+Player::Player(const AnimatedSprite& s, const AnimatedSprite& s1, const AnimatedSprite& s2, const AnimatedSprite& s3, const AnimatedSprite& s4) : GameObject(s,s1,s2,s3,s4)
 {
 	m_player_fsm.setCurrent(new Idle());
 	m_player_fsm.setPrevious(new Idle());
@@ -21,40 +21,51 @@ Player::~Player()
 
 AnimatedSprite& Player::getAnimatedSprite()
 {
-	int frame = m_animated_sprite.getCurrentFrame();
-	m_animated_sprite.setTextureRect(m_animated_sprite.getFrame(frame));
-	return m_animated_sprite;
+	if (shape == SQUARE)
+	{
+		int frame = m_animated_square.getCurrentFrame();
+		m_animated_square.setTextureRect(m_animated_square.getFrame(frame));
+		return m_animated_square;
+	}
+	else if (shape == POLY)
+	{
+		int frame = m_animated_poly.getCurrentFrame();
+		m_animated_poly.setTextureRect(m_animated_poly.getFrame(frame));
+		return m_animated_poly;
+	}
+	else if (shape == CIRCLE)
+	{
+		int frame = m_animated_circle.getCurrentFrame();
+		m_animated_circle.setTextureRect(m_animated_circle.getFrame(frame));
+		return m_animated_circle;
+	}
+	else if (shape == CAPSULE)
+	{
+		int frame = m_animated_capsule.getCurrentFrame();
+		m_animated_capsule.setTextureRect(m_animated_capsule.getFrame(frame));
+		return m_animated_capsule;
+	}
+	else if (shape == RAY)
+	{
+		int frame = m_animated_ray.getCurrentFrame();
+		m_animated_ray.setTextureRect(m_animated_ray.getFrame(frame));
+		return m_animated_ray;
+	}
 }
 
 void Player::handleInput(Input in)
 {
 	DEBUG_MSG("Handle Input");
 
-	switch (in.getCurrent())
-	{
-	case Input::Action::IDLE:
-		//std::cout << "Player Idling" << std::endl;
-		m_player_fsm.idle();
-		break;
-	case Input::Action::UP:
-		//std::cout << "Player Up" << std::endl;
-		m_player_fsm.climbing();
-		break;
-	case Input::Action::LEFT:
-		//std::cout << "Player Left" << std::endl;
-		m_player_fsm.jumping();
-		break;
-	case Input::Action::RIGHT:
-		//std::cout << "Player Idling" << std::endl;
-		m_player_fsm.jumping();
-		break;
-	default:
-		break;
-	}
+	shape = in.getCurrent();
 }
 
 void Player::update()
 {
 	//std::cout << "Handle Update" << std::endl;
-	m_animated_sprite.update();
+	m_animated_square.update();
+	m_animated_poly.update();
+	m_animated_circle.update();
+	m_animated_capsule.update();
+	m_animated_ray.update();
 }

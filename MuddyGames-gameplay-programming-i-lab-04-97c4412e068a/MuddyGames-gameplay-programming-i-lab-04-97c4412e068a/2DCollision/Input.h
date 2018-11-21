@@ -8,10 +8,7 @@ public:
 
 	enum Action
 	{
-		IDLE,
-		UP,
-		LEFT,
-		RIGHT
+		SQUARE, POLY, CIRCLE, CAPSULE, RAY
 	};
 
 	void setCurrent(Action);

@@ -8,14 +8,18 @@
 
 class NPC : public GameObject
 {
-
+private:
+	enum shape{ SQUARE, POLY, CIRCLE, CAPSULE, RAY };
+	
 public:
 	NPC();
 	~NPC();
-	NPC(const AnimatedSprite&);
+	NPC(const AnimatedSprite&, const AnimatedSprite&, const AnimatedSprite&, const AnimatedSprite&, const AnimatedSprite&);
 	AnimatedSprite& getAnimatedSprite();
 	void handleInput(Input);
 	void update();
+
+	int shape = SQUARE;
 };
 
 #endif // !NPC_H

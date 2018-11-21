@@ -203,9 +203,9 @@ int main()
 	ray_Npc.p = c2V(npc.getAnimatedSprite().getPosition().x, npc.getAnimatedSprite().getPosition().y + 38);
 	ray_Npc.t = 82;
 
-	c2v tempVector = c2V(ray_Npc.p.x + 82, ray_Npc.p.y);
+	c2v tempVector2 = c2V(ray_Npc.p.x + 82, ray_Npc.p.y);
 
-	ray_Npc.d = c2V((tempVector.x - ray_Npc.p.x) / 82, (tempVector.y - npc.p.y) / 82);
+	ray_Npc.d = c2V((tempVector.x - ray_Npc.p.x) / 82, (tempVector.y - ray_Npc.p.y) / 82);
 
 
 	// Initialize Input
@@ -244,8 +244,12 @@ int main()
 			player.getAnimatedSprite().getPosition().y +
 			player.getAnimatedSprite().getGlobalBounds().height
 		);
+		// update player circle
 		circle_Player.p = c2V(player.getAnimatedSprite().getPosition().x , player.getAnimatedSprite().getPosition().y );
 
+		//update player capsule
+		capsule_Player.a = { player.getAnimatedSprite().getPosition().x + capsule_Player.r, player.getAnimatedSprite().getPosition().y + 33 };
+		capsule_Player.b = { player.getAnimatedSprite().getPosition().x + player.getAnimatedSprite().getGlobalBounds().width - capsule_Player.r, player.getAnimatedSprite().getPosition().y + 33 };
 
 		// Process events
 		sf::Event event;
@@ -311,15 +315,65 @@ int main()
 		npc.update();
 
 		// Check for collisions
+		// : two AABBs
 		if (player.shape == 0 && npc.shape == 0)
 		{
 			result = c2AABBtoAABB(aabb_player, aabb_npc);
 			cout << ((result != 0) ? ("box to box collision") : "") << endl;
 		}
+		// : two Circles
+		else if(player.shape == 2 && npc.shape == 2)
+		{
+			result = c2CircletoCircle(circle_Player, circle_Npc);
+			cout << ((result != 0) ? ("circle to circle collision") : "") << endl;
+		}
+		// : two Polygons
+		/*else if (player.shape == 1 && npc.shape == 1)
+		{
+			result = c2PolytoPoly(polygon_player, polygon_Npc);
+			cout << ((result != 0) ? ("poly to poly collision") : "") << endl;
+		}*/
+		// : two Capsules
+		else if (player.shape == 3 && npc.shape == 3)
+		{
+			result = c2CapsuletoCapsule(capsule_Player, capsule_Npc);
+			cout << ((result != 0) ? ("capsule to capsule collision") : "") << endl;
+		}
+		// : a circle and a AABB
 		else if (player.shape == 2 && npc.shape == 0)
 		{
 			result = c2CircletoAABB(circle_Player, aabb_npc);
 			cout << ((result != 0) ? ("circle to box collision") : "") << endl;
+		}
+		//
+		else if (player.shape == 0 && npc.shape == 2)
+		{
+			result = c2CircletoAABB(circle_Npc, aabb_player);
+			cout << ((result != 0) ? ("box to circle collision") : "") << endl;
+		}
+		// : a circle and a Capsule
+		else if (player.shape == 2 && npc.shape == 3)
+		{
+			result = c2CircletoCapsule(circle_Player, capsule_Npc);
+			cout << ((result != 0) ? ("circle to capsule collision") : "") << endl;
+		}
+		// : a capsule and a Circle
+		else if (player.shape == 3 && npc.shape == 2)
+		{
+			result = c2CircletoCapsule(circle_Npc, capsule_Player);
+			cout << ((result != 0) ? ("capsule to circle collision") : "") << endl;
+		}
+		// : a capsule and a AABB
+		else if (player.shape == 3 && npc.shape == 0)
+		{
+			result = c2AABBtoCapsule(aabb_npc, capsule_Player);
+			cout << ((result != 0) ? ("capsule to box collision") : "") << endl;
+		}
+		// : a AABB and a capsule
+		else if (player.shape == 0 && npc.shape == 3)
+		{
+			result = c2AABBtoCapsule(aabb_player, capsule_Npc);
+			cout << ((result != 0) ? ("box to capsule collision") : "") << endl;
 		}
 
 		// Clear screen

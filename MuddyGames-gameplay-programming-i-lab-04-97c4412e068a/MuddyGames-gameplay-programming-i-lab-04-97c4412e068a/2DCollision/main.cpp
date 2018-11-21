@@ -38,9 +38,42 @@ int main()
 	npc_animated_sprite.addFrame(sf::IntRect(258, 3, 84, 84));
 	npc_animated_sprite.addFrame(sf::IntRect(343, 3, 84, 84));
 	npc_animated_sprite.addFrame(sf::IntRect(428, 3, 84, 84));
+	// Setup NPC's Poly Sprite
+	AnimatedSprite npc_poly_animation(npc_texture);
+	npc_poly_animation.addFrame(sf::IntRect(3, 3, 84, 84));
+	npc_poly_animation.addFrame(sf::IntRect(88, 3, 84, 84));
+	npc_poly_animation.addFrame(sf::IntRect(173, 3, 84, 84));
+	npc_poly_animation.addFrame(sf::IntRect(258, 3, 84, 84));
+	npc_poly_animation.addFrame(sf::IntRect(343, 3, 84, 84));
+	npc_poly_animation.addFrame(sf::IntRect(428, 3, 84, 84));
+	// Setup NPC's Circle Sprite
+	AnimatedSprite npc_circle_animation(npc_texture);
+	npc_circle_animation.addFrame(sf::IntRect(3, 3, 84, 84));
+	npc_circle_animation.addFrame(sf::IntRect(88, 3, 84, 84));
+	npc_circle_animation.addFrame(sf::IntRect(173, 3, 84, 84));
+	npc_circle_animation.addFrame(sf::IntRect(258, 3, 84, 84));
+	npc_circle_animation.addFrame(sf::IntRect(343, 3, 84, 84));
+	npc_circle_animation.addFrame(sf::IntRect(428, 3, 84, 84));
+	// Setup NPC's Capsule Sprite
+	AnimatedSprite npc_capsule_animation(npc_texture);
+	npc_capsule_animation.addFrame(sf::IntRect(3, 3, 84, 84));
+	npc_capsule_animation.addFrame(sf::IntRect(88, 3, 84, 84));
+	npc_capsule_animation.addFrame(sf::IntRect(173, 3, 84, 84));
+	npc_capsule_animation.addFrame(sf::IntRect(258, 3, 84, 84));
+	npc_capsule_animation.addFrame(sf::IntRect(343, 3, 84, 84));
+	npc_capsule_animation.addFrame(sf::IntRect(428, 3, 84, 84));
+	// Setup NPC's Ray Sprite
+	AnimatedSprite npc_ray_animation(npc_texture);
+	npc_ray_animation.addFrame(sf::IntRect(3, 3, 84, 84));
+	npc_ray_animation.addFrame(sf::IntRect(88, 3, 84, 84));
+	npc_ray_animation.addFrame(sf::IntRect(173, 3, 84, 84));
+	npc_ray_animation.addFrame(sf::IntRect(258, 3, 84, 84));
+	npc_ray_animation.addFrame(sf::IntRect(343, 3, 84, 84));
+	npc_ray_animation.addFrame(sf::IntRect(428, 3, 84, 84));
+
 
 	// Setup Players Default Animated Sprite
-	AnimatedSprite player_animated_sprite(player_texture);
+	AnimatedSprite player_animated_sprite(npc_texture);
 	player_animated_sprite.addFrame(sf::IntRect(3, 3, 84, 84));
 	player_animated_sprite.addFrame(sf::IntRect(88, 3, 84, 84));
 	player_animated_sprite.addFrame(sf::IntRect(173, 3, 84, 84));
@@ -48,9 +81,10 @@ int main()
 	player_animated_sprite.addFrame(sf::IntRect(343, 3, 84, 84));
 	player_animated_sprite.addFrame(sf::IntRect(428, 3, 84, 84));
 
+	
 	// Setup the NPC
 	GameObject &npc = NPC(npc_animated_sprite);
-
+	npc_animated_sprite.setPosition(sf::Vector2f(600, 500));
 	// Setup the Player
 	GameObject &player = Player(player_animated_sprite);
 
@@ -68,6 +102,30 @@ int main()
 	aabb_player.min = c2V(player.getAnimatedSprite().getPosition().x, player.getAnimatedSprite().getPosition().y);
 	aabb_player.max = c2V(player.getAnimatedSprite().getGlobalBounds().width / 6, player.getAnimatedSprite().getGlobalBounds().width / 6);
 
+	//Setup Player Circle
+	c2Circle circle_Player;
+	circle_Player.p = c2V(player.getAnimatedSprite().getPosition().x, player.getAnimatedSprite().getPosition().y);
+	circle_Player.r = 10;
+
+	//Setup NPC Circle
+	c2Circle circle_Npc;
+	circle_Npc.p = c2V(npc.getAnimatedSprite().getPosition().x, npc.getAnimatedSprite().getPosition().y);
+	circle_Npc.r = 10;
+
+	//Setup Player Capsule
+	c2Capsule capsule_Player;
+
+
+	//Setup NPC Capsule
+	c2Capsule capsule_Npc;
+
+
+
+	c2Poly polygon_player;
+	c2Poly polygon_Npc;
+
+	c2Ray ray_Player;
+	c2Ray ray_Npc;
 
 	// Initialize Input
 	Input input;
@@ -76,7 +134,7 @@ int main()
 	int result = 0;
 
 	// Direction of movement of NPC
-	sf::Vector2f direction(0.1f, 0.2f);
+	sf::Vector2f direction(0.0, 0.0f);
 	
 	// Start the game loop
 	while (window.isOpen())
@@ -172,7 +230,7 @@ int main()
 
 		// Check for collisions
 		result = c2AABBtoAABB(aabb_player, aabb_npc);
-		cout << ((result != 0) ? ("Collision") : "") << endl;
+		cout << ((result != 0) ? ("box to box collision") : "") << endl;
 		if (result){
 			player.getAnimatedSprite().setColor(sf::Color(255,0,0));
 		}

@@ -34,48 +34,48 @@ int main()
 
 	// Setup NPC's Default Animated Sprite
 	AnimatedSprite npc_animated_square(npc_texture);
-	npc_animated_square.addFrame(sf::IntRect(3, 3, 84, 84));
-	npc_animated_square.addFrame(sf::IntRect(88, 3, 84, 84));
-	npc_animated_square.addFrame(sf::IntRect(173, 3, 84, 84));
-	npc_animated_square.addFrame(sf::IntRect(258, 3, 84, 84));
-	npc_animated_square.addFrame(sf::IntRect(343, 3, 84, 84));
 	npc_animated_square.addFrame(sf::IntRect(428, 3, 84, 84));
+	npc_animated_square.addFrame(sf::IntRect(343, 3, 84, 84));
+	npc_animated_square.addFrame(sf::IntRect(258, 3, 84, 84));
+	npc_animated_square.addFrame(sf::IntRect(173, 3, 84, 84));
+	npc_animated_square.addFrame(sf::IntRect(88, 3, 84, 84));
+	npc_animated_square.addFrame(sf::IntRect(3, 3, 84, 84));
 
 	// Setup NPC's Poly Sprite
 	AnimatedSprite npc_poly_animation(npc_texture);
-	npc_poly_animation.addFrame(sf::IntRect(3, 88, 84, 84));
-	npc_poly_animation.addFrame(sf::IntRect(88, 88, 84, 84));
-	npc_poly_animation.addFrame(sf::IntRect(173, 88, 84, 84));
-	npc_poly_animation.addFrame(sf::IntRect(258, 88, 84, 84));
-	npc_poly_animation.addFrame(sf::IntRect(343, 88, 84, 84));
 	npc_poly_animation.addFrame(sf::IntRect(428, 88, 84, 84));
+	npc_poly_animation.addFrame(sf::IntRect(343, 88, 84, 84));
+	npc_poly_animation.addFrame(sf::IntRect(258, 88, 84, 84));
+	npc_poly_animation.addFrame(sf::IntRect(173, 88, 84, 84));
+	npc_poly_animation.addFrame(sf::IntRect(88, 88, 84, 84));
+	npc_poly_animation.addFrame(sf::IntRect(3, 88, 84, 84));
 
 	// Setup NPC's Circle Sprite
 	AnimatedSprite npc_circle_animation(npc_texture);
-	npc_circle_animation.addFrame(sf::IntRect(3, 173, 84, 84));
-	npc_circle_animation.addFrame(sf::IntRect(88, 173, 84, 84));
-	npc_circle_animation.addFrame(sf::IntRect(173, 173, 84, 84));
-	npc_circle_animation.addFrame(sf::IntRect(258, 173, 84, 84));
-	npc_circle_animation.addFrame(sf::IntRect(343, 173, 84, 84));
 	npc_circle_animation.addFrame(sf::IntRect(428, 173, 84, 84));
+	npc_circle_animation.addFrame(sf::IntRect(343, 173, 84, 84));
+	npc_circle_animation.addFrame(sf::IntRect(258, 173, 84, 84));
+	npc_circle_animation.addFrame(sf::IntRect(173, 173, 84, 84));
+	npc_circle_animation.addFrame(sf::IntRect(88, 173, 84, 84));
+	npc_circle_animation.addFrame(sf::IntRect(3, 173, 84, 84));
 
 	// Setup NPC's Capsule Sprite
 	AnimatedSprite npc_capsule_animation(npc_texture);
-	npc_capsule_animation.addFrame(sf::IntRect(3, 258, 84, 84));
-	npc_capsule_animation.addFrame(sf::IntRect(88, 258, 84, 84));
-	npc_capsule_animation.addFrame(sf::IntRect(173, 258, 84, 84));
-	npc_capsule_animation.addFrame(sf::IntRect(258, 258, 84, 84));
-	npc_capsule_animation.addFrame(sf::IntRect(343, 258, 84, 84));
 	npc_capsule_animation.addFrame(sf::IntRect(428, 258, 84, 84));
+	npc_capsule_animation.addFrame(sf::IntRect(343, 258, 84, 84));
+	npc_capsule_animation.addFrame(sf::IntRect(258, 258, 84, 84));
+	npc_capsule_animation.addFrame(sf::IntRect(173, 258, 84, 84));
+	npc_capsule_animation.addFrame(sf::IntRect(88, 258, 84, 84));
+	npc_capsule_animation.addFrame(sf::IntRect(3, 258, 84, 84));
 
 	// Setup NPC's Ray Sprite
 	AnimatedSprite npc_ray_animation(npc_texture);
-	npc_ray_animation.addFrame(sf::IntRect(3, 343, 84, 84));
-	npc_ray_animation.addFrame(sf::IntRect(88, 343, 84, 84));
-	npc_ray_animation.addFrame(sf::IntRect(173, 343, 84, 84));
-	npc_ray_animation.addFrame(sf::IntRect(258, 343, 84, 84));
-	npc_ray_animation.addFrame(sf::IntRect(343, 343, 84, 84));
 	npc_ray_animation.addFrame(sf::IntRect(428, 343, 84, 84));
+	npc_ray_animation.addFrame(sf::IntRect(343, 343, 84, 84));
+	npc_ray_animation.addFrame(sf::IntRect(258, 343, 84, 84));
+	npc_ray_animation.addFrame(sf::IntRect(173, 343, 84, 84));
+	npc_ray_animation.addFrame(sf::IntRect(88, 343, 84, 84));
+	npc_ray_animation.addFrame(sf::IntRect(3, 343, 84, 84));
 
 	//-------------------------------------------------------------------------------------------
 
@@ -191,12 +191,12 @@ int main()
 
 	//setup player ray
 	c2Ray ray_Player;
-	ray_Player.p = c2V(player.getAnimatedSprite().getPosition().x, player.getAnimatedSprite().getPosition().y + 38);
+	ray_Player.p = c2V(player.getAnimatedSprite().getPosition().x, player.getAnimatedSprite().getPosition().y /*+ 38*/);
 	ray_Player.t = 82;
 
 	c2v tempVector = c2V(ray_Player.p.x + 82, ray_Player.p.y);
 
-	ray_Player.d = c2V((tempVector.x - ray_Player.p.x)/82, (tempVector.y - ray_Player.p.y)/82);
+	ray_Player.d = c2V((ray_Player.p.x -tempVector.x ) / 84, (ray_Player.p.y -tempVector.y ) / 84);
 
 	//setup npc ray
 	c2Ray ray_Npc;
@@ -207,6 +207,8 @@ int main()
 
 	ray_Npc.d = c2V((tempVector.x - ray_Npc.p.x) / 82, (tempVector.y - ray_Npc.p.y) / 82);
 
+	c2Raycast cast;
+	c2Raycast* pCast = &cast;
 
 	// Initialize Input
 	Input input;
@@ -245,12 +247,13 @@ int main()
 			player.getAnimatedSprite().getGlobalBounds().height
 		);
 		// update player circle
-		circle_Player.p = c2V(player.getAnimatedSprite().getPosition().x , player.getAnimatedSprite().getPosition().y );
+		circle_Player.p = c2V(player.getAnimatedSprite().getPosition().x + 44, player.getAnimatedSprite().getPosition().y + 44);
 
 		//update player capsule
-		capsule_Player.a = { player.getAnimatedSprite().getPosition().x + capsule_Player.r, player.getAnimatedSprite().getPosition().y + 33 };
-		capsule_Player.b = { player.getAnimatedSprite().getPosition().x + player.getAnimatedSprite().getGlobalBounds().width - capsule_Player.r, player.getAnimatedSprite().getPosition().y + 33 };
+		capsule_Player.a = { player.getAnimatedSprite().getPosition().x + capsule_Player.r, player.getAnimatedSprite().getPosition().y + 50 };
+		capsule_Player.b = { player.getAnimatedSprite().getPosition().x + player.getAnimatedSprite().getGlobalBounds().width - capsule_Player.r, player.getAnimatedSprite().getPosition().y + 50 };
 
+		ray_Player.p = c2V(player.getAnimatedSprite().getPosition().x, player.getAnimatedSprite().getPosition().y + 38);
 		// Process events
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -330,7 +333,7 @@ int main()
 		// : two Polygons
 		/*else if (player.shape == 1 && npc.shape == 1)
 		{
-			result = c2PolytoPoly(polygon_player, polygon_Npc);
+			result = c2PolytoPoly(polygon_player, 0, polygon_Npc, 0);
 			cout << ((result != 0) ? ("poly to poly collision") : "") << endl;
 		}*/
 		// : two Capsules
@@ -374,6 +377,12 @@ int main()
 		{
 			result = c2AABBtoCapsule(aabb_player, capsule_Npc);
 			cout << ((result != 0) ? ("box to capsule collision") : "") << endl;
+		}
+		// : a ray and a AABB
+		else if (player.shape == 4 && npc.shape == 0)
+		{
+			result = c2RaytoAABB(ray_Player, aabb_npc, pCast);
+			cout << ((result != 0) ? ("ray to AABB collsion") : "") << endl;
 		}
 
 		// Clear screen
